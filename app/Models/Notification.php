@@ -13,10 +13,27 @@ class Notification extends Model
         "headline",
         "caption",
         "text",
+        "lines",
+        "meta",
         "type",
         "priority",
         "display_limit",
         "display_from",
         "display_till",
+    ];
+
+    protected $casts = [
+        "lines" => "json",
+        "meta"  => "json",
+    ];
+
+    protected $attributes = [
+        "text" => "",
+        "lines" => "",
+        "meta" => "",
+        "type" => "default",
+        "priority" => 1,
+        "displayed_times" => 0,
+        "display_limit" => 0,
     ];
 }

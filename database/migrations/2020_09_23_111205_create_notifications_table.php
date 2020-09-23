@@ -19,6 +19,7 @@ class CreateNotificationsTable extends Migration
             $table->string("headline");
             $table->string("caption");
             $table->text("text");
+            $table->json("lines");
             $table->enum("type", [
                 "default",
                 "urgent",
