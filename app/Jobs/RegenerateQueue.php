@@ -61,16 +61,26 @@ class RegenerateQueue implements ShouldQueue
 
         Log::debug("Adding additional messages (fillers)");
 
-        foreach ($notifications as $notification) {
+        $skip_notifications = [];
+        $notifications_to_still_process = $notifications->whereNotIn("id", $skip_notifications);
 
-            do {
+        do {
+            foreach ($notifications_to_still_process as $notification) {
                 $should_retry = false;
 
                 if ($this->mayBeQueued($notification)) {
                     $should_retry = $this->queueNotification($notification, false);
                 }
-            } while ($should_retry);
-        }
+
+                if (!$should_retry) {
+                    $skip_notifications[] = $notification->id;
+                }
+            }
+
+            $notifications_to_still_process = $notifications_to_still_process->whereNotIn("id", $skip_notifications);
+        } while ($notifications_to_still_process->count() > 0);
+
+
     }
 
     /**
@@ -90,9 +100,7 @@ class RegenerateQueue implements ShouldQueue
     }
 
     protected function isTimeslotSafe(DateTime $display_at, $interval) {
-        if (rand(0,10) > 7) {
-            //return false;
-        }
+        $interval -= 1;
 
         $display_at_min = (clone $display_at)->modify("-{$interval}seconds");
         $display_at_max = (clone $display_at)->modify("+{$interval}seconds");
