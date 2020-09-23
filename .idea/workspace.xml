@@ -3,16 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="d1e3d668-7b39-4dbc-80f5-a58f22c2f2ea" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/QueueController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/QueueController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Jobs/RegenerateQueue.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Jobs/RegenerateQueue.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Config.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Config.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Donation.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Donation.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Notification.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Notification.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/ProgramEvent.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/ProgramEvent.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/QueueElement.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/QueueElement.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/factories/NotificationFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/NotificationFactory.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/seeders/ConfigSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/ConfigSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/queue/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/queue/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -187,7 +181,7 @@
       <updated>1600859161944</updated>
       <workItem from="1600859165836" duration="7517000" />
       <workItem from="1600872701942" duration="12000" />
-      <workItem from="1600873082950" duration="10377000" />
+      <workItem from="1600873082950" duration="11967000" />
     </task>
     <servers />
   </component>
@@ -211,9 +205,9 @@
       <screen x="0" y="23" width="1792" height="1046" />
     </state>
     <state x="626" y="285" width="552" height="524" key="StructurePopup/0.23.1792.1046@0.23.1792.1046" timestamp="1600865814371" />
-    <state x="561" y="255" width="670" height="676" key="search.everywhere.popup" timestamp="1600886214459">
+    <state x="561" y="255" width="670" height="676" key="search.everywhere.popup" timestamp="1600887055961">
       <screen x="0" y="23" width="1792" height="1046" />
     </state>
-    <state x="561" y="255" width="670" height="676" key="search.everywhere.popup/0.23.1792.1046@0.23.1792.1046" timestamp="1600886214459" />
+    <state x="561" y="255" width="670" height="676" key="search.everywhere.popup/0.23.1792.1046@0.23.1792.1046" timestamp="1600887055961" />
   </component>
 </project>

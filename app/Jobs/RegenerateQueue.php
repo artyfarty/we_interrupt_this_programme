@@ -12,6 +12,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Mockery\Matcher\Not;
 
 class RegenerateQueue implements ShouldQueue
@@ -41,6 +42,8 @@ class RegenerateQueue implements ShouldQueue
      */
     public function handle()
     {
+        Log::debug("Begin regeneration");
+
         //$notifications = DB::table("notifications")->orderBy("priority, display_from")->get();
         $notifications = Notification::all()->sortBy("priority, display_from");
 
@@ -56,8 +59,10 @@ class RegenerateQueue implements ShouldQueue
             }
         }
 
+        Log::debug("Adding additional messages (fillers)");
 
         foreach ($notifications as $notification) {
+
             do {
                 $should_retry = false;
 
@@ -85,6 +90,10 @@ class RegenerateQueue implements ShouldQueue
     }
 
     protected function isTimeslotSafe(DateTime $display_at, $interval) {
+        if (rand(0,10) > 7) {
+            //return false;
+        }
+
         $display_at_min = (clone $display_at)->modify("-{$interval}seconds");
         $display_at_max = (clone $display_at)->modify("+{$interval}seconds");
 
@@ -99,27 +108,48 @@ class RegenerateQueue implements ShouldQueue
 
     protected function queueNotification(Notification  $n, $try_hard = false) {
         $timeslot = date_create($n->display_from);
+        $display_till = date_create($n->display_till);
         $this->zeroSeconds($timeslot);
 
-        while ($timeslot < $n->display_till && !$this->isTimeslotSafe($timeslot, $this->normalInterval)) {
-            $timeslot->modify("+{$this->normalInterval}min");
+        Log::debug("N{$n->id} for time {$timeslot->format("H:i")} - {$display_till->format("H:i")}");
+
+        while ($timeslot < $display_till && !$this->isTimeslotSafe($timeslot, $this->normalInterval)) {
+            $timeslot->modify("+{$this->normalInterval}seconds");
+
+            if ($timeslot > $display_till) {
+                $display_till = clone $display_till;
+            }
+
+            Log::debug("normally adjusted timeslot to {$timeslot->format("H:i")}");
         }
 
         if (!$this->isTimeslotSafe($timeslot, $this->minInterval) && $try_hard) {
+            Log::debug("Failed, will try at reduced intervals");
+
             $timeslot = date_create($n->display_from);
             $this->zeroSeconds($timeslot);
 
-            while ($timeslot < $n->display_till && !$this->isTimeslotSafe($timeslot, $this->minInterval)) {
+            while ($timeslot < $display_till && !$this->isTimeslotSafe($timeslot, $this->minInterval)) {
                 $timeslot->modify("+{$this->minInterval}seconds");
+
+                if ($timeslot > $display_till) {
+                    $display_till = clone $display_till;
+                }
+
+                Log::debug("tryharded timeslot to {$timeslot->format("H:i")}");
             }
         }
 
         if ($this->isTimeslotSafe($timeslot, $this->minInterval)) {
+            Log::debug("Timeslot {$timeslot->format("H:i")} is safe, saving");
+
             $n->queued()->create(["display_at" => $timeslot]);
             $n->save();
 
             return true;
         }
+
+        Log::debug("Timeslot {$timeslot->format("H:i")} failed to fit");
 
         return false;
     }

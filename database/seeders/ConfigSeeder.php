@@ -14,8 +14,8 @@ class ConfigSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('configs')->insert(["key" => "queue.interval_min", "value" => "30"]);
-        DB::table('configs')->insert(["key" => "queue.interval", "value" => "120"]);
+        DB::table('configs')->insert(["key" => "queue.interval_min", "value" => "60"]);
+        DB::table('configs')->insert(["key" => "queue.interval", "value" => "300"]);
         DB::table('configs')->insert(["key" => "queue.horizon", "value" => "+2days"]);
     }
 }

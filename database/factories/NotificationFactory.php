@@ -16,6 +16,9 @@ class NotificationFactory extends Factory {
      */
     public function definition() {
         $date_from = $this->faker->dateTimeBetween("now", "now +1day");
+        $length = rand(15, 120);
+        $date_till = (clone $date_from)->modify("+{$length}min");
+
 
         return [
             "headline" => $this->faker->text(50),
@@ -34,8 +37,8 @@ class NotificationFactory extends Factory {
             ),
             "priority" => $this->faker->numberBetween(0, 2),
             "display_limit" => $this->faker->numberBetween(1, 10),
-            "display_from" => $this->faker->dateTimeBetween("now", "now +1day"),
-            "display_till" => $this->faker->dateTimeBetween($date_from,"now +1day"),
+            "display_from" => $date_from,
+            "display_till" => $date_till,
         ];
     }
 
