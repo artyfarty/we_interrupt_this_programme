@@ -18,7 +18,7 @@
         @foreach ($queues as $entry)
             <tr>
                 <th scope="row">{{ $entry->id }}&nbsp;/&nbsp;{{ $entry->notification_id }}</th>
-                <td>{{ date_create($entry->display_at)->format("j F H:i") }}</td>
+                <td>{{ date_create($entry->display_at)->format("j M H:i") }}</td>
                 <td>{{ $entry->was_displayed ? "Да" : "Нет" }}</td>
                 <td>
                     <p>
@@ -30,7 +30,7 @@
                 </td>
                 <td>
                     <p>Приоритет: {{ $entry->notification->priority }}</p>
-                    <p>Таймфрейм: {{ date_create($entry->notification->display_from)->format("j F H:i") }} – {{ date_create($entry->notification->display_till)->format("j F H:i") }}</p>
+                    <p>Таймфрейм: {{ date_create($entry->notification->display_from)->format("j M H:i") }} – {{ date_create($entry->notification->display_till)->format("j M H:i") }}</p>
                     <p>Лимит показов: {{ $entry->notification->display_limit }}</p>
                 </td>
             </tr>

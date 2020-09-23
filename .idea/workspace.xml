@@ -4,9 +4,7 @@
     <list default="true" id="d1e3d668-7b39-4dbc-80f5-a58f22c2f2ea" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Jobs/RegenerateQueue.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Jobs/RegenerateQueue.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/factories/NotificationFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/NotificationFactory.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeders/ConfigSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/ConfigSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/queue/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/queue/index.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -181,7 +179,7 @@
       <updated>1600859161944</updated>
       <workItem from="1600859165836" duration="7517000" />
       <workItem from="1600872701942" duration="12000" />
-      <workItem from="1600873082950" duration="11967000" />
+      <workItem from="1600873082950" duration="12373000" />
     </task>
     <servers />
   </component>

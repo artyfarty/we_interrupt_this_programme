@@ -117,7 +117,7 @@ class RegenerateQueue implements ShouldQueue
             $timeslot->modify("+{$this->normalInterval}seconds");
 
             if ($timeslot > $display_till) {
-                $display_till = clone $display_till;
+                $timeslot = clone $display_till;
             }
 
             Log::debug("normally adjusted timeslot to {$timeslot->format("H:i")}");
@@ -133,7 +133,7 @@ class RegenerateQueue implements ShouldQueue
                 $timeslot->modify("+{$this->minInterval}seconds");
 
                 if ($timeslot > $display_till) {
-                    $display_till = clone $display_till;
+                    $timeslot = clone $display_till;
                 }
 
                 Log::debug("tryharded timeslot to {$timeslot->format("H:i")}");
