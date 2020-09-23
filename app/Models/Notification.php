@@ -5,6 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class Notification
+ * @package App\Models
+ *
+ *
+ */
 class Notification extends Model
 {
     use HasFactory;
@@ -33,8 +39,7 @@ class Notification extends Model
         "meta" => "",
         "type" => "default",
         "priority" => 1,
-        "displayed_times" => 0,
-        "display_limit" => 0,
+        "display_limit" => 1,
     ];
 
     public function queued() {

@@ -27,9 +27,9 @@ class NotificationFactory extends Factory {
                 [
                     "default",
                     "urgent",
-                    //"schedule",
+                    "schedule",
                     //"donation",
-                    "list"
+                    //"list"
                 ]
             ),
             "priority" => $this->faker->numberBetween(0, 2),

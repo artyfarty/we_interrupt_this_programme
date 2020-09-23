@@ -2,22 +2,30 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d1e3d668-7b39-4dbc-80f5-a58f22c2f2ea" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/commandlinetools/Laravel_23_09_2020__17_58.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/commandlinetools/schemas/frameworkDescriptionVersion1.1.4.xsd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/laravel-plugin.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Repositories/ConfigRepository.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/layouts/layout.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/queue/index.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Models/Notification.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Notification.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/factories/NotificationFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/NotificationFactory.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/migrations/2020_09_23_111205_create_notifications_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_09_23_111205_create_notifications_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
-    <execution>
-      <executable />
-    </execution>
+    <execution />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -139,7 +147,6 @@
     <option name="autoscrollFromSource" value="true" />
     <option name="autoscrollToSource" value="true" />
     <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
@@ -149,7 +156,13 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.selected.configurable" value="de.espend.idea.laravel.ui.TemplateSettingsForm" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/views/layouts" />
+      <recent name="$PROJECT_DIR$/resources/views" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
@@ -157,6 +170,7 @@
       <method v="2" />
     </configuration>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="d1e3d668-7b39-4dbc-80f5-a58f22c2f2ea" name="Default Changelist" comment="" />
@@ -164,29 +178,35 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1600859161944</updated>
-      <workItem from="1600859165836" duration="7009000" />
+      <workItem from="1600859165836" duration="7517000" />
+      <workItem from="1600872701942" duration="12000" />
+      <workItem from="1600873082950" duration="6360000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="634" y="308" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1600864816322">
+    <state x="634" y="308" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1600880536351">
       <screen x="0" y="23" width="1792" height="1046" />
     </state>
-    <state x="634" y="308" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.23.1792.1046@0.23.1792.1046" timestamp="1600864816322" />
-    <state x="586" y="369" key="NewPhpClassDialog" timestamp="1600864752118">
+    <state x="634" y="308" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.23.1792.1046@0.23.1792.1046" timestamp="1600880536351" />
+    <state x="586" y="369" key="NewPhpClassDialog" timestamp="1600879257441">
       <screen x="0" y="23" width="1792" height="1046" />
     </state>
-    <state x="586" y="369" key="NewPhpClassDialog/0.23.1792.1046@0.23.1792.1046" timestamp="1600864752118" />
+    <state x="586" y="369" key="NewPhpClassDialog/0.23.1792.1046@0.23.1792.1046" timestamp="1600879257441" />
+    <state x="397" y="185" key="SettingsEditor" timestamp="1600873201708">
+      <screen x="0" y="23" width="1792" height="1046" />
+    </state>
+    <state x="397" y="185" key="SettingsEditor/0.23.1792.1046@0.23.1792.1046" timestamp="1600873201708" />
     <state x="626" y="285" width="552" height="524" key="StructurePopup" timestamp="1600865814371">
       <screen x="0" y="23" width="1792" height="1046" />
     </state>
     <state x="626" y="285" width="552" height="524" key="StructurePopup/0.23.1792.1046@0.23.1792.1046" timestamp="1600865814371" />
-    <state x="561" y="255" width="670" height="676" key="search.everywhere.popup" timestamp="1600869096480">
+    <state x="561" y="255" width="670" height="676" key="search.everywhere.popup" timestamp="1600880884300">
       <screen x="0" y="23" width="1792" height="1046" />
     </state>
-    <state x="561" y="255" width="670" height="676" key="search.everywhere.popup/0.23.1792.1046@0.23.1792.1046" timestamp="1600869096480" />
+    <state x="561" y="255" width="670" height="676" key="search.everywhere.popup/0.23.1792.1046@0.23.1792.1046" timestamp="1600880884300" />
   </component>
 </project>

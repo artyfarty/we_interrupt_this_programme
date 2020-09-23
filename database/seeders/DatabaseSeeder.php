@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Notification;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,5 +18,7 @@ class DatabaseSeeder extends Seeder
         Notification::factory()->count(30)->create();
 
         Notification::factory()->count(5)->isList()->create();
+
+        $this->call([ConfigSeeder::class]);
     }
 }
