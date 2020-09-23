@@ -22,9 +22,14 @@ class QueueController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function index()
-    {
-        return view('queue.index', ['queues' => QueueElement::all(), "queue_interval" => $this->configRepository->get("queue.interval")]);
+    public function index() {
+        return view(
+            'queue.index', [
+                             'queues'               => QueueElement::all()->sortBy("display_at"),
+                             "queue_interval"       => $this->configRepository->get("queue.interval"),
+                             "queue_interval_min"   => $this->configRepository->get("queue.interval_min"),
+                         ]
+        );
     }
 
     /**
