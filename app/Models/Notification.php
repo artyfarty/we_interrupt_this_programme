@@ -36,4 +36,8 @@ class Notification extends Model
         "displayed_times" => 0,
         "display_limit" => 0,
     ];
+
+    public function queued() {
+        return $this->hasMany(QueueElement::class);
+    }
 }

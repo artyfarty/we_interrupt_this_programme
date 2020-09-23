@@ -16,8 +16,11 @@ class CreateNotificationsTable extends Migration
         Schema::create('notifications', function (Blueprint $table) {
             $table->id();
 
-            $table->string("headline");
+            $table->integer("program_event_id");
+            $table->integer("donation_id");
+
             $table->string("caption");
+            $table->string("headline");
             $table->text("text");
             $table->json("lines");
             $table->enum("type", [
@@ -30,11 +33,15 @@ class CreateNotificationsTable extends Migration
             $table->json("meta");
             $table->integer("priority");
             $table->integer("display_limit");
-            $table->integer("displayed_times");
+            //$table->integer("displayed_times");
             $table->dateTime("display_from");
             $table->dateTime("display_till");
 
             $table->timestamps();
+
+            $table->index(["program_event_id"]);
+            $table->index(["donation_id"]);
+            $table->index(["display_from", "display_till"]);
         });
     }
 

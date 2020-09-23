@@ -2,14 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d1e3d668-7b39-4dbc-80f5-a58f22c2f2ea" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/composerJson.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/factories/NotificationFactory.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Models/Notification.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Notification.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/factories/NotificationFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/NotificationFactory.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/migrations/2020_09_23_111205_create_notifications_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_09_23_111205_create_notifications_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -167,7 +164,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1600859161944</updated>
-      <workItem from="1600859165836" duration="3522000" />
+      <workItem from="1600859165836" duration="7009000" />
     </task>
     <servers />
   </component>
@@ -187,5 +184,9 @@
       <screen x="0" y="23" width="1792" height="1046" />
     </state>
     <state x="626" y="285" width="552" height="524" key="StructurePopup/0.23.1792.1046@0.23.1792.1046" timestamp="1600865814371" />
+    <state x="561" y="255" width="670" height="676" key="search.everywhere.popup" timestamp="1600869096480">
+      <screen x="0" y="23" width="1792" height="1046" />
+    </state>
+    <state x="561" y="255" width="670" height="676" key="search.everywhere.popup/0.23.1792.1046@0.23.1792.1046" timestamp="1600869096480" />
   </component>
 </project>

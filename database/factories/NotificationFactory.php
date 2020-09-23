@@ -27,8 +27,8 @@ class NotificationFactory extends Factory {
                 [
                     "default",
                     "urgent",
-                    "schedule",
-                    "donation",
+                    //"schedule",
+                    //"donation",
                     "list"
                 ]
             ),
