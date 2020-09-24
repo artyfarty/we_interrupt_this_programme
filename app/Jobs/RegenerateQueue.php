@@ -123,7 +123,7 @@ class RegenerateQueue implements ShouldQueue
         Log::debug("N{$n->id} for time {$timeslot->format("H:i")} - {$display_till->format("H:i")}");
 
         $interval = $this->normalInterval;
-        
+
         if ($n->priority == 0) {
             $interval = $this->priorityInterval;
         }

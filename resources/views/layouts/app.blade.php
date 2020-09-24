@@ -46,6 +46,9 @@
                             <a class="nav-link" href="/configs/">Настройки</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="{{ route("reference") }}">Ссылочки</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">AAAA</a>
                         </li>
                         <li class="nav-item">
