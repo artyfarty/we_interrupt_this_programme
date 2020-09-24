@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Notification;
+use App\Models\ProgramEvent;
 use App\Models\QueueElement;
 use Illuminate\Http\Request;
 
@@ -29,26 +31,29 @@ class ApiController extends Controller
             return [];
         }
 
+        $notification = Notification::find($qe->notification_id);
+        $program = ProgramEvent::find($notification->program_event_id);
+
         $msg = [
             "id" => +$qe->id,
-            "type" => $qe->notification->type,
-            "caption" => $qe->notification->caption,
-            "headline" => $qe->notification->headline,
-            "text" => $qe->notification->text
+            "type" => $notification->type,
+            "caption" => $notification->caption,
+            "headline" => $notification->headline,
+            "text" => $notification->text
         ];
 
-        if ($qe->notification->type == "schedule" && $qe->notification->program_event_id) {
-            $msg["event_time"] = date_create($qe->notification->program()->get("begin_at")->first())->format("H:i");
+        if ($notification->type == "schedule" && $program) {
+            $msg["event_time"] = date_create($program->begin_at)->format("H:i");
         }
 
-        if ($qe->notification->type == "list") {
-            $msg["lines"] = explode("\n", $qe->notification->text);
+        if ($notification->type == "list") {
+            $msg["lines"] = explode("\n", $notification->text);
             unset($msg["text"]);
         }
 
-        if ($qe->notification->type == "donation") {
-            $msg["amount"] = +$qe->notification->donation->sum;
-            $msg["currency"] = $qe->notification->donation->currency;
+        if ($notification->type == "donation") {
+            $msg["amount"] = +$notification->donation->sum;
+            $msg["currency"] = $notification->donation->currency;
         }
 
         if ($auto_ack) {
