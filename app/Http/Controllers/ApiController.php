@@ -27,41 +27,50 @@ class ApiController extends Controller
             ->sortBy("display_at")
             ->first();
 
-        if (!$qe) {
-            return [];
-        }
 
-        $notification = Notification::find($qe->notification_id);
-        $program = ProgramEvent::find($notification->program_event_id);
-
-        $msg = [
-            "id" => +$qe->id,
-            "type" => $notification->type,
-            "caption" => $notification->caption,
-            "headline" => $notification->headline,
-            "text" => $notification->text
+        $cfg = [
+            "duration"  => +config_get("queue.display.duration"),
+            "poll"      => +config_get("queue.display.poll")
         ];
 
-        if ($notification->type == "schedule" && $program) {
-            $msg["event_time"] = date_create($program->begin_at)->format("H:i");
+        $result = [
+            "config" => $cfg,
+        ];
+
+        if ($qe) {
+            $notification = Notification::find($qe->notification_id);
+            $program      = ProgramEvent::find($notification->program_event_id);
+
+            $msg = [
+                "id"       => +$qe->id,
+                "type"     => $notification->type,
+                "caption"  => $notification->caption,
+                "headline" => $notification->headline,
+                "text"     => $notification->text
+            ];
+
+            if ($notification->type == "schedule" && $program) {
+                $msg["event_time"] = date_create($program->begin_at)->format("H:i");
+            }
+
+            if ($notification->type == "list") {
+                $msg["lines"] = explode("\n", $notification->text);
+                unset($msg["text"]);
+            }
+
+            if ($notification->type == "donation") {
+                $msg["amount"]   = +$notification->donation->sum;
+                $msg["currency"] = $notification->donation->currency;
+            }
+
+            if ($auto_ack) {
+                $qe->was_displayed = true;
+                $qe->save();
+            }
+            $result["message"] = $msg;
         }
 
-        if ($notification->type == "list") {
-            $msg["lines"] = explode("\n", $notification->text);
-            unset($msg["text"]);
-        }
-
-        if ($notification->type == "donation") {
-            $msg["amount"] = +$notification->donation->sum;
-            $msg["currency"] = $notification->donation->currency;
-        }
-
-        if ($auto_ack) {
-            $qe->was_displayed = true;
-            $qe->save();
-        }
-
-        return ["message" => $msg];
+        return $result;
     }
 
     public function ack($id, $password) {
