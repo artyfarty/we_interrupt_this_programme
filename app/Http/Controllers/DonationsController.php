@@ -22,10 +22,10 @@ class DonationsController extends Controller
 
                 $donation = Donation::firstOrCreate(["donate_id" => $event_id], [
                     "donate_id" => $event_id,
-                    "person" => $event["attributes"]["DONATION_SENDER"],
-                    "message" => $event["attributes"]["DONATION_MESSAGE"],
-                    "sum" => $event["attributes"]["DONATION_AMOUNT"],
-                    "currency" => $event["attributes"]["DONATION_CURRENCY"],
+                    "person" => $event["attributes"]["DONATION_SENDER"] ?? "Аноним",
+                    "message" => $event["attributes"]["DONATION_MESSAGE"] ?? "Решил промолчать",
+                    "sum" => $event["attributes"]["DONATION_AMOUNT"] ?? 0,
+                    "currency" => $event["attributes"]["DONATION_CURRENCY"] ?? "",
                 ]);
 
                 $donation->save();
