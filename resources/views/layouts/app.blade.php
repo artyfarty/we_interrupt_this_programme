@@ -24,7 +24,7 @@
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    SSC ONLINE IS LIFE
                 </a>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -63,8 +63,6 @@
         </nav>
 
         <main class="container">
-            <h1>OH GOD FUCK THIS SHIT</h1>
-
             @yield('content')
         </main>
     </div>
