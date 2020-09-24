@@ -1,4 +1,7 @@
 {
+    "/announcer-app/js/index.js": "/announcer-app/js/index.js",
     "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css"
+    "/css/app.css": "/css/app.css",
+    "/announcer-app/css/app.css": "/announcer-app/css/app.css",
+    "/announcer-app/sr.apng": "/announcer-app/sr.apng"
 }

@@ -1,5 +1,8 @@
 /node_modules
 /public/hot
+/public/announcer-app
+/public/js
+/public/css
 /public/storage
 /storage/*.key
 /vendor

@@ -1,4 +1,6 @@
 const mix = require('laravel-mix');
+require("laravel-mix-react-typescript-extension");
+require('mix-html-builder');
 
 /*
  |--------------------------------------------------------------------------
@@ -13,6 +15,18 @@ const mix = require('laravel-mix');
 
 require('mix-tailwindcss');
 
-mix.js('resources/js/app.js', 'public/js')
+mix
+    .js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
     .tailwind();
+
+mix
+    .reactTypeScript("resources/announcer-app/index.tsx", "public/announcer-app/js")
+    .sass("resources/announcer-app/app.scss", "public/announcer-app/css")
+    .html({
+        htmlRoot: 'resources/announcer-app/index.html',
+        output: 'announcer-app/',
+        inject: true
+    })
+    .copy('resources/announcer-app/sr.apng', 'public/announcer-app/sr.apng');
+
