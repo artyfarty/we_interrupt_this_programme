@@ -12,20 +12,21 @@ class DonationsController extends Controller
 {
     public function index() {
         $token = config_get("donate.key");
-
-        $response = Http::get("https://donate.qiwi.com/api/stream/v1/widgets/$token/events?limit=50");
+        
+        $response = Http::get("https://donate.qiwi.com/api/stream/v1/statistics/$token/last-messages?limit=20");
 
         if ($response->successful()) {
             $responseJson = $response->json();
-            foreach ($responseJson["events"] as $event) {
-                $event_id = "eventExtId";
+
+            foreach ($responseJson["messages"] as $event) {
+                $event_id = $event["messageExtId"];
 
                 $donation = Donation::firstOrCreate(["donate_id" => $event_id], [
                     "donate_id" => $event_id,
-                    "person" => $event["attributes"]["DONATION_SENDER"] ?? "Аноним",
-                    "message" => $event["attributes"]["DONATION_MESSAGE"] ?? "Решил промолчать",
-                    "sum" => $event["attributes"]["DONATION_AMOUNT"] ?? 0,
-                    "currency" => $event["attributes"]["DONATION_CURRENCY"] ?? "",
+                    "person" => $event["senderName"] ?? "Аноним",
+                    "message" => $event["message"] ?? "Решил промолчать",
+                    "sum" => $event["amount"]["value"] ?? 0,
+                    "currency" => $event["amount"]["currency"] ?? "",
                 ]);
 
                 $donation->save();
