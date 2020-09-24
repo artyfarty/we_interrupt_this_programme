@@ -20,6 +20,7 @@ class ConfigSeeder extends Seeder
         DB::table('configs')->insertOrIgnore(["key" => "queue.interval_min", "value" => "60", "desc" => "Минимальный интервал между сообщениями в очереди"]);
         DB::table('configs')->insertOrIgnore(["key" => "queue.interval", "value" => "300", "desc" => "Оптимальный интервал между сообщениями в очереди"]);
         DB::table('configs')->insertOrIgnore(["key" => "queue.interval_priority", "value" => "1", "desc" => "Интервал между сообщениями для сообщений с приоритетом 0"]);
+        DB::table('configs')->insertOrIgnore(["key" => "queue.schedule.interval", "value" => "300", "desc" => "Интервал между копиями сообщений о расписании"]);
 
         DB::table('configs')->insertOrIgnore(["key" => "queue.display.duration", "value" => "10000", "desc" => "Как долго отображать сообщение на клиенте (msec)"]);
         DB::table('configs')->insertOrIgnore(["key" => "queue.display.poll", "value" => "500", "desc" => "Как часто поллить на клиенте (msec)"]);
