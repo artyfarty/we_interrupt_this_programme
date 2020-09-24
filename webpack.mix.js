@@ -25,8 +25,7 @@ mix
     .sass("resources/announcer-app/app.scss", "public/announcer-app/css")
     .html({
         htmlRoot: 'resources/announcer-app/index.html',
-        output: 'announcer-app/',
-        inject: true
+        output: 'announcer-app/'
     })
     .copy('resources/announcer-app/sr.apng', 'public/announcer-app/sr.apng');
 
