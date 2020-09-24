@@ -9,6 +9,14 @@ const
     api = process.env.MIX_ANNOUNCER_APP_API ? process.env.MIX_ANNOUNCER_APP_API : "",
     token = process.env.MIX_ANNOUNCER_APP_TOKEN ? process.env.MIX_ANNOUNCER_APP_TOKEN : "",
 
+    ackMode =process.env.MIX_ANNOUNCER_APP_ACC_MODE === "true",
+
+    pollUrl = ackMode
+        ? `${api}/api/poll/${token}/0`
+        : `${api}/api/poll/${token}`,
+
+    ackUrl = (id) => `${api}/api/ack/${id}/${token}`,
+
     fadeDelay = process.env.MIX_ANNOUNCER_APP_FADE_DELAY ? parseInt(process.env.MIX_ANNOUNCER_APP_FADE_DELAY) : 7000,
 
     pollDelay:number = process.env.MIX_ANNOUNCER_APP_POLL_DELAY ? parseInt(process.env.MIX_ANNOUNCER_APP_POLL_DELAY) : 500;
@@ -35,56 +43,67 @@ const App = () => {
         }),
 
         poll = () => {
-            axios.get(`${api}/api/poll/${token}`)
-                .then(function (response) {
+            try {
+                axios.get(pollUrl)
+                    .then(function (response) {
+                        const notification = (response.data.message as INotification);
 
-                    if (response.status === 200 && response.data.message && pollSchema.isValidSync(response.data.message)) {
+                        if (response.status === 200 && response.data.message && pollSchema.isValidSync(response.data.message)) {
 
-                        setState({
-                            notification: (response.data.message as INotification),
-                            fade: false
-                        });
-
-                        fadeTimeout = window.setTimeout(() => {
                             setState({
-                                notification: (response.data.message as INotification),
-                                fade: true
+                                notification: notification,
+                                fade: false
                             });
 
-                            //после завершения анимации возобновляем очередь
-                            rePollTimeout = window.setTimeout(() => {
+                            fadeTimeout = window.setTimeout(() => {
                                 setState({
-                                    notification: null,
-                                    fade: false
+                                    notification: notification,
+                                    fade: true
                                 });
-                                poll();
-                            }, pollDelay + 500);
 
-                        }, fadeDelay);
+                                if (ackMode) {
+                                    //если включён ack-режим, то уведомляем об успехе
+                                    axios.get(ackUrl(notification.id)).catch(e => console.error(e));
+                                }
 
-                    } else {
-                        //повторяем
-                        pollTimeout = window.setTimeout(() => poll(), pollDelay);
-                    }
-                })
-                .catch(function (error) {
-                    if (error.response) {
-                        // The request was made and the server responded with a status code
-                        // that falls out of the range of 2xx
-                        console.log(error.response.data);
-                        console.log(error.response.status);
-                        console.log(error.response.headers);
-                    } else if (error.request) {
-                        // The request was made but no response was received
-                        // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-                        // http.ClientRequest in node.js
-                        console.log(error.request);
-                    } else {
-                        // Something happened in setting up the request that triggered an Error
-                        console.log('Error', error.message);
-                    }
-                    console.log(error.config);
-                });
+                                //после завершения анимации возобновляем очередь
+                                rePollTimeout = window.setTimeout(() => {
+                                    setState({
+                                        notification: null,
+                                        fade: false
+                                    });
+                                    poll();
+                                }, pollDelay + 500);
+
+                            }, fadeDelay);
+
+                        } else {
+                            //повторяем
+                            pollTimeout = window.setTimeout(() => poll(), pollDelay);
+                        }
+                    })
+                    .catch(function (error) {
+                        if (error.response) {
+                            // The request was made and the server responded with a status code
+                            // that falls out of the range of 2xx
+                            console.log(error.response.data);
+                            console.log(error.response.status);
+                            console.log(error.response.headers);
+                        } else if (error.request) {
+                            // The request was made but no response was received
+                            // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+                            // http.ClientRequest in node.js
+                            console.log(error.request);
+                        } else {
+                            // Something happened in setting up the request that triggered an Error
+                            console.log('Error', error.message);
+                        }
+                        console.log(error.config);
+                    });
+            } catch (e) {
+                console.error('Some really bad error occurred. Retrying to poll!', e);
+                window.setInterval(() => poll(), 1000);
+            }
         };
 
     useEffect(() => {

@@ -1,38 +1,28 @@
 export interface INotificationSimple {
-    type?: string;
-    caption?: string;
-    headline?: string;
+    id: number;
+    type: string;
+    caption: string;
+    headline: string;
     text: string;
 }
 
-export interface INotificationUrgent {
+export interface INotificationUrgent extends INotificationSimple {
     type: "urgent";
-    caption?: string;
-    headline?: string;
     text: string;
 }
 
-export interface INotificationSchedule {
+export interface INotificationSchedule extends INotificationSimple {
     type: "schedule";
-    caption?: string;
-    headline?: string;
-    text: string;
-    event_time: string; //"19:00"
+    event_time?: string; //"19:00"
 }
 
-export interface INotificationDonation {
+export interface INotificationDonation extends INotificationSimple {
     type: "donation";
-    caption?: string;
-    headline?: string;
-    text: string;
 }
 
-export interface INotificationList {
+export interface INotificationList extends INotificationSimple {
     type: "list";
-    caption?: string;
-    headline?: string;
     lines: string[];
-    text?: string;
 }
 
 export type INotification = INotificationSimple | INotificationUrgent | INotificationSchedule | INotificationDonation | INotificationList;
