@@ -39,7 +39,6 @@
                                         <th>В очереди</th>
 
 										<th>Контент</th>
-										<th>Meta</th>
 										<th>Priority</th>
 										<th>Display Limit</th>
 

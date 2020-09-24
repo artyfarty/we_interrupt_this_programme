@@ -46,9 +46,14 @@ class ProgramEvent extends Model
     protected static function booted()
     {
         $createOrUpdate = function (ProgramEvent $pe) {
+            $now = date_create();
 
             $end_date = date_create($pe->begin_at);
             $begin_date = (clone $end_date)->modify(config_get("program.notify_for"));
+
+            if ($begin_date < $now) {
+                $begin_date = clone $now;
+            }
 
             if ($pe->status == "enabled") {
                 $pe->notification()->delete();
