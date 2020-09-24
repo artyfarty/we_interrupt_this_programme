@@ -28,7 +28,7 @@
                 <td>
                     <form action="{{ route('donations.toggle', $donate->id) }}" method="POST">
                         @csrf
-                        <button type="submit" class="btn btn-warning btn-sm"><i class="fa fa-fw fa-trash"></i>{{ $donate->approved ? "Разрешен" : "Запрещен" }}</button>
+                        <button type="submit" class="btn {{ $donate->approved ? "btn-success" : "btn-warning"}} btn-sm"><i class="fa fa-fw fa-trash"></i>{{ $donate->approved ? "Разрешен" : "Запрещен" }}</button>
                     </form>
                 </td>
                 <td>
