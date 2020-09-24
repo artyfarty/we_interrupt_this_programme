@@ -26,6 +26,7 @@ class RegenerateQueue implements ShouldQueue
 
     protected $minInterval = 0;
     protected $normalInterval = 0;
+    protected $priorityInterval = 0;
 
     public function __construct() {
 
@@ -33,6 +34,7 @@ class RegenerateQueue implements ShouldQueue
 
         $this->minInterval = +$this->configRepository->get("queue.interval_min");
         $this->normalInterval = +$this->configRepository->get("queue.interval");
+        $this->priorityInterval = +$this->configRepository->get("queue.interval_priority");
     }
 
     /**
@@ -120,8 +122,14 @@ class RegenerateQueue implements ShouldQueue
 
         Log::debug("N{$n->id} for time {$timeslot->format("H:i")} - {$display_till->format("H:i")}");
 
-        while ($timeslot < $display_till && !$this->isTimeslotSafe($timeslot, $this->normalInterval)) {
-            $timeslot->modify("+{$this->normalInterval}seconds");
+        $interval = $this->normalInterval;
+        
+        if ($n->priority == 0) {
+            $interval = $this->priorityInterval;
+        }
+
+        while ($timeslot < $display_till && !$this->isTimeslotSafe($timeslot, $interval)) {
+            $timeslot->modify("+{$interval}seconds");
 
             if ($timeslot > $display_till) {
                 $timeslot = clone $display_till;
