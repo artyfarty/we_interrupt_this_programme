@@ -9,11 +9,11 @@ class ApiController extends Controller
 {
     public function poll($password) {
         if ($password !== env("WITP_PASSWORD")) {
-            return ["NOPE"];
+            return ["error" => "403"];
         }
 
         if (!config_get("queue.enable")) {
-            return [];
+            return ["error" => "disabled"];
         }
 
         $now = date_create()->format("Y-m-d H:i:s");
@@ -29,7 +29,7 @@ class ApiController extends Controller
             return [];
         }
 
-        $result = [
+        $msg = [
             "type" => $qe->notification->type,
             "caption" => $qe->notification->caption,
             "headline" => $qe->notification->headline,
@@ -37,23 +37,23 @@ class ApiController extends Controller
         ];
 
         if ($qe->notification->type == "schedule" && $qe->notification->program_event_id) {
-            $result["event_time"] = date_create($qe->notification->program()->get("begin_at")->first())->format("H:i");
+            $msg["event_time"] = date_create($qe->notification->program()->get("begin_at")->first())->format("H:i");
         }
 
         if ($qe->notification->type == "list") {
-            $result["lines"] = explode("\n", $qe->notification->text);
-            unset($result["text"]);
+            $msg["lines"] = explode("\n", $qe->notification->text);
+            unset($msg["text"]);
         }
 
         if ($qe->notification->type == "donation") {
-            $result["amount"] = +$qe->notification->donation->sum;
-            $result["currency"] = $qe->notification->donation->currency;
+            $msg["amount"] = +$qe->notification->donation->sum;
+            $msg["currency"] = $qe->notification->donation->currency;
         }
 
         $qe->was_displayed = true;
         $qe->save();
 
-        return $result;
+        return ["message" => $msg];
 
     }
 }
