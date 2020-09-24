@@ -25,7 +25,7 @@ export const Notification = (props: IProps) => {
         }} catch (e) {
             console.error("List scrolling problem", e);
         }
-    }, []);
+    }, [listItem]);
 
     let content;
 

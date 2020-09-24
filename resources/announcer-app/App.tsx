@@ -23,10 +23,10 @@ const
 
 const messageSchema = yup.object().shape({
         id: yup.number().required(),
-        type: yup.string().required(),
-        caption: yup.string().required(),
-        headline: yup.string().required(),
-        text: yup.string().required(),
+        type: yup.string().notRequired(),
+        caption: yup.string().notRequired(),
+        headline: yup.string().notRequired(),
+        text: yup.string().notRequired(),
     });
 
 const configSchema = yup.object().shape({
