@@ -17,7 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource("queue_entries", \App\Http\Controllers\QueueController::class);
-Route::resource('notifications', \App\Http\Controllers\NotificationController::class);
-Route::resource('configs', \App\Http\Controllers\ConfigController::class);
-Route::resource('program-events', \App\Http\Controllers\ProgramEventController::class);
+Route::resource("queue_entries", \App\Http\Controllers\QueueController::class)->middleware('auth.basic');
+Route::resource('notifications', \App\Http\Controllers\NotificationController::class)->middleware('auth.basic');
+Route::resource('configs', \App\Http\Controllers\ConfigController::class)->middleware('auth.basic');
+Route::resource('program-events', \App\Http\Controllers\ProgramEventController::class)->middleware('auth.basic');

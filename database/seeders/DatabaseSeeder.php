@@ -20,5 +20,6 @@ class DatabaseSeeder extends Seeder
         //Notification::factory()->count(10)->isList()->create();
 
         $this->call([ConfigSeeder::class]);
+        $this->call([UserSeeder::class]);
     }
 }

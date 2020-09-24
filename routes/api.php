@@ -15,4 +15,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get("poll", [\App\Http\Controllers\ApiController::class, "poll"]);
+Route::get("poll/{password}", [\App\Http\Controllers\ApiController::class, "poll"]);
