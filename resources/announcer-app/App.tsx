@@ -43,67 +43,65 @@ const App = () => {
         }),
 
         poll = () => {
-            try {
-                axios.get(pollUrl)
-                    .then(function (response) {
-                        const notification = (response.data.message as INotification);
+            axios.get(pollUrl)
+                .then(function (response) {
+                    const notification = (response.data.message as INotification);
 
-                        if (response.status === 200 && response.data.message && pollSchema.isValidSync(response.data.message)) {
+                    if (response.status === 200 && response.data.message && pollSchema.isValidSync(response.data.message)) {
 
+                        setState({
+                            notification: notification,
+                            fade: false
+                        });
+
+                        fadeTimeout = window.setTimeout(() => {
                             setState({
                                 notification: notification,
-                                fade: false
+                                fade: true
                             });
 
-                            fadeTimeout = window.setTimeout(() => {
+                            if (ackMode) {
+                                //если включён ack-режим, то уведомляем об успехе
+                                axios.get(ackUrl(notification.id)).catch(e => console.error(e));
+                            }
+
+                            //после завершения анимации возобновляем очередь
+                            rePollTimeout = window.setTimeout(() => {
                                 setState({
-                                    notification: notification,
-                                    fade: true
+                                    notification: null,
+                                    fade: false
                                 });
+                                poll();
+                            }, pollDelay + 500);
 
-                                if (ackMode) {
-                                    //если включён ack-режим, то уведомляем об успехе
-                                    axios.get(ackUrl(notification.id)).catch(e => console.error(e));
-                                }
+                        }, fadeDelay);
 
-                                //после завершения анимации возобновляем очередь
-                                rePollTimeout = window.setTimeout(() => {
-                                    setState({
-                                        notification: null,
-                                        fade: false
-                                    });
-                                    poll();
-                                }, pollDelay + 500);
+                    } else {
+                        //повторяем
+                        pollTimeout = window.setTimeout(() => poll(), pollDelay);
+                    }
 
-                            }, fadeDelay);
+                })
+                .catch((error) => {
+                    if (error.response) {
+                        // The request was made and the server responded with a status code
+                        // that falls out of the range of 2xx
+                        console.log(error.response.data);
+                        console.log(error.response.status);
+                        console.log(error.response.headers);
+                    } else if (error.request) {
+                        // The request was made but no response was received
+                        // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+                        // http.ClientRequest in node.js
+                        console.log(error.request);
+                    } else {
+                        // Something happened in setting up the request that triggered an Error
+                        console.log('Error', error.message);
+                    }
+                    console.log(error.config);
 
-                        } else {
-                            //повторяем
-                            pollTimeout = window.setTimeout(() => poll(), pollDelay);
-                        }
-                    })
-                    .catch(function (error) {
-                        if (error.response) {
-                            // The request was made and the server responded with a status code
-                            // that falls out of the range of 2xx
-                            console.log(error.response.data);
-                            console.log(error.response.status);
-                            console.log(error.response.headers);
-                        } else if (error.request) {
-                            // The request was made but no response was received
-                            // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-                            // http.ClientRequest in node.js
-                            console.log(error.request);
-                        } else {
-                            // Something happened in setting up the request that triggered an Error
-                            console.log('Error', error.message);
-                        }
-                        console.log(error.config);
-                    });
-            } catch (e) {
-                console.error('Some really bad error occurred. Retrying to poll!', e);
-                window.setInterval(() => poll(), 1000);
-            }
+                    pollTimeout = window.setTimeout(() => poll(), pollDelay);
+                })
         };
 
     useEffect(() => {
