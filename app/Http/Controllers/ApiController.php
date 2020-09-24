@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class ApiController extends Controller
 {
-    public function poll($password) {
+    public function poll($password, $auto_ack = 1) {
         if ($password !== env("WITP_PASSWORD")) {
             return ["error" => "403"];
         }
@@ -30,6 +30,7 @@ class ApiController extends Controller
         }
 
         $msg = [
+            "id" => +$qe->id,
             "type" => $qe->notification->type,
             "caption" => $qe->notification->caption,
             "headline" => $qe->notification->headline,
@@ -50,10 +51,26 @@ class ApiController extends Controller
             $msg["currency"] = $qe->notification->donation->currency;
         }
 
+        if ($auto_ack) {
+            $qe->was_displayed = true;
+            $qe->save();
+        }
+
+        return ["message" => $msg];
+    }
+
+    public function ack($id, $password) {
+        if ($password !== env("WITP_PASSWORD")) {
+            return ["error" => "403"];
+        }
+
+        $qe = QueueElement::find($id);
         $qe->was_displayed = true;
         $qe->save();
 
-        return ["message" => $msg];
-
+        return [
+            "id" => $id,
+            "result" => true
+        ];
     }
 }

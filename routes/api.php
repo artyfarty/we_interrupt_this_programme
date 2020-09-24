@@ -16,3 +16,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get("poll/{password}", [\App\Http\Controllers\ApiController::class, "poll"]);
+Route::get("poll/{password}/{auto_ack}", [\App\Http\Controllers\ApiController::class, "poll"]);
+Route::get("ack/{id}/{password}", [\App\Http\Controllers\ApiController::class, "ack"]);

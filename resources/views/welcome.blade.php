@@ -8,6 +8,8 @@
     <p>А затем перенаполни базу с их учетом <code>php artisan migrate:fresh --seed</code></p>
     <p>Если страница похожа на говно без стилей то сделвй <code>npm run dev</code></p>
 
-    <h2>API хэндл</h2>
-    <p><a href="{{ url('/api/poll/WITP_PASSWORD') }}">{{ url('/api/poll/WITP_PASSWORD') }}</a></p>
+    <h2>API</h2>
+    <p><code>{{ url('/api/poll/WITP_PASSWORD') }}</code> – получить сообщение и пометить показанным</p>
+    <p><code>{{ url('/api/poll/WITP_PASSWORD/0') }}</code> – получить сообщение и не помечать показанным</p>
+    <p><code>{{ url('/api/ack/__ID__/WITP_PASSWORD') }}</code> – пометить сообщение показанным</p>
 @endsection
