@@ -29,9 +29,7 @@
                             <table class="table table-striped table-hover">
                                 <thead class="thead">
                                     <tr>
-                                        <th>No</th>
-
-										<th>Key</th>
+										<th></th>
 										<th>Value</th>
 
                                         <th></th>
@@ -40,9 +38,10 @@
                                 <tbody>
                                     @foreach ($configs as $config)
                                         <tr>
-                                            <td>{{ ++$i }}</td>
-
-											<td>{{ $config->key }}</td>
+											<td>
+                                                <h5>{{ $config->key }}</h5>
+                                                <p>{{ $config->desc }}</p>
+                                            </td>
 											<td>{{ $config->value }}</td>
 
                                             <td>

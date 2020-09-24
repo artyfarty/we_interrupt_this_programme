@@ -12,6 +12,10 @@ class ApiController extends Controller
             return ["NOPE"];
         }
 
+        if (!config_get("queue.enable")) {
+            return [];
+        }
+
         $now = date_create()->format("Y-m-d H:i:s");
 
         /** @var QueueElement $qe */
