@@ -4,6 +4,7 @@ export interface INotificationSimple {
     caption: string;
     headline: string;
     text: string;
+    duration: number;
 }
 
 export interface INotificationUrgent extends INotificationSimple {
