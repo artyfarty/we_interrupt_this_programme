@@ -14,8 +14,12 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert(
+        DB::table('users')->updateOrInsert(
             [
+                "id" => 1
+            ],
+            [
+                "id" => 1,
                 "name" => env("WITP_USERNAME"),
                 "email" => env("WITP_EMAIL"),
                 "password" => password_hash(env("WITP_PASSWORD"), PASSWORD_DEFAULT),
