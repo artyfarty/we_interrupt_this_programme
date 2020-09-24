@@ -3,7 +3,7 @@
 
         <div class="form-group">
             {{ Form::label('begin_at') }}
-            {{ Form::text('begin_at', $programEvent->begin_at, ['class' => 'form-control' . ($errors->has('begin_at') ? ' is-invalid' : ''), 'placeholder' => 'Begin At']) }}
+            <input type="datetime-local" name="begin_at" id="begin_at" class="{{ 'form-control' . ($errors->has('begin_at') ? ' is-invalid' : '') }}" value="{{ html5date($programEvent->begin_at) }}">
             {!! $errors->first('begin_at', '<div class="invalid-feedback">:message</p>') !!}
         </div>
         <div class="form-group">

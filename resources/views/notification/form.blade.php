@@ -54,12 +54,12 @@
         </div>
         <div class="form-group">
             {{ Form::label('Показывать начиная с') }}
-            {{ Form::text('display_from', $notification->display_from, ['class' => 'form-control' . ($errors->has('display_from') ? ' is-invalid' : ''), 'placeholder' => 'Display From']) }}
+            <input type="datetime-local" name="display_from" id="display_from" class="{{ 'form-control' . ($errors->has('display_from') ? ' is-invalid' : '') }}" value="{{ html5date($notification->display_from) }}">
             {!! $errors->first('display_from', '<div class="invalid-feedback">:message</p>') !!}
         </div>
         <div class="form-group">
             {{ Form::label('Показать до') }}
-            {{ Form::text('display_till', $notification->display_till, ['class' => 'form-control' . ($errors->has('display_till') ? ' is-invalid' : ''), 'placeholder' => 'Display Till']) }}
+            <input type="datetime-local" name="display_till" id="display_till" class="{{ 'form-control' . ($errors->has('display_till') ? ' is-invalid' : '') }}" value="{{ html5date($notification->display_till) }}">
             {!! $errors->first('display_till', '<div class="invalid-feedback">:message</p>') !!}
         </div>
 

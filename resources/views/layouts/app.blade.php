@@ -65,5 +65,17 @@
             @yield('content')
         </main>
     </div>
+
+
+    <script type="text/javascript">
+        $(function () {
+            $('.dtp-sbs').datetimepicker({
+                inline: true,
+                sideBySide: true,
+                format: "YYYY-MM-DD HH:mm",
+                stepping: 5,
+            });
+        });
+    </script>
 </body>
 </html>

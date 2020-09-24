@@ -35,7 +35,7 @@
                                 <thead class="thead">
                                     <tr>
                                         <th>No</th>
-                                        
+
 										<th>Begin At</th>
 										<th>Headline</th>
 										<th>Text</th>
@@ -48,15 +48,14 @@
                                     @foreach ($programEvents as $programEvent)
                                         <tr>
                                             <td>{{ ++$i }}</td>
-                                            
+
 											<td>{{ $programEvent->begin_at }}</td>
 											<td>{{ $programEvent->headline }}</td>
 											<td>{{ $programEvent->text }}</td>
-											<td>{{ $programEvent->status }}</td>
+											<td><span class="badge badge-{{ $programEvent->status == "enabled" ? "success" : "danger" }}">{{ $programEvent->status }}</span></td>
 
                                             <td>
                                                 <form action="{{ route('program-events.destroy',$programEvent->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('program-events.show',$programEvent->id) }}"><i class="fa fa-fw fa-eye"></i> Show</a>
                                                     <a class="btn btn-sm btn-success" href="{{ route('program-events.edit',$programEvent->id) }}"><i class="fa fa-fw fa-edit"></i> Edit</a>
                                                     @csrf
                                                     @method('DELETE')
