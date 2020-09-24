@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+VMNAME=fusionvm
+
+# https://www.notion.so/timepaddev/cli-vmf-f4c872d82d634205a54599558ec67c95
+# you can set lower resources if you wish
+# docker-machine create --driver vmwarefusion --vmwarefusion-cpu-count 6 --vmwarefusion-memory-size 6144 $VMNAME
+# docker-machine regenerate-certs $VMNAME
+
+# share user dir with projects into vm with the same name
+# docker-machine start $VMNAME
+
+VMNAME=fusionvm
+docker-machine start $VMNAME
+eval "$(docker-machine env $VMNAME)"
+
+export VMF_VM_IP
+VMF_VM_IP=$(docker-machine ip $VMNAME)
+echo "docker-machine ip = $VMF_VM_IP"
+
+export VMF_HOST_IP
+IFS=. read -r i1 i2 i3 i4 <<< "$VMF_VM_IP"
+VMF_HOST_IP=$(printf "%d.%d.%d.%d\n" "$i1" "$i2" "$i3" 1)
+echo "host ip = $VMF_HOST_IP"
+
+SHARENAME=witp
+PROJDIR="$(dirname "$(realpath "$0")")"
+VMX=$(vmrun list | grep fusionvm)
+export VMF_SHARE=/mnt/hgfs/$SHARENAME
+
+echo "Ensuring shared folder $VMF_SHARE:$PROJDIR"
+vmrun addSharedFolder "$VMX" $SHARENAME "$PROJDIR"
+
+. .env
+
+# shellcheck disable=SC2046
+# shellcheck disable=SC2086
+# shellcheck disable=SC2048
+docker-compose -f docker-compose.yml $(if [ -f ".vcompose-args" ] ; then cat .vcompose-args; else echo '' ; fi) $*

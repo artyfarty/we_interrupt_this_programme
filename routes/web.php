@@ -18,3 +18,6 @@ Route::get('/', function () {
 });
 
 Route::resource("queue_entries", \App\Http\Controllers\QueueController::class);
+Route::resource('notifications', \App\Http\Controllers\NotificationController::class);
+Route::resource('configs', \App\Http\Controllers\ConfigController::class);
+Route::resource('program-events', \App\Http\Controllers\ProgramEventController::class);

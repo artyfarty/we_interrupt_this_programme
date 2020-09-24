@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts.app')
 
 @section('content')
     <p>У нас тут {{ date_create()->format("Y-m-d H:i:s") }}</p>

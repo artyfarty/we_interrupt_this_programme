@@ -22,14 +22,7 @@ class CreateNotificationsTable extends Migration
             $table->string("caption");
             $table->string("headline");
             $table->text("text");
-            $table->json("lines");
-            $table->enum("type", [
-                "default",
-                "urgent",
-                "schedule",
-                "donation",
-                "list"
-            ]);
+            $table->string("type");
             $table->json("meta");
             $table->integer("priority");
             $table->integer("display_limit");

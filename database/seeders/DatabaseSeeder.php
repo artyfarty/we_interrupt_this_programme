@@ -15,9 +15,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Notification::factory()->count(80)->create();
+        //Notification::factory()->count(80)->create();
 
-        Notification::factory()->count(10)->isList()->create();
+        //Notification::factory()->count(10)->isList()->create();
 
         $this->call([ConfigSeeder::class]);
     }

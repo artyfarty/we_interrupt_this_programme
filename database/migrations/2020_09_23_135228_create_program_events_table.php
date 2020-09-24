@@ -19,7 +19,7 @@ class CreateProgramEventsTable extends Migration
             $table->dateTime("begin_at");
             $table->string("headline");
             $table->text("text");
-            $table->enum("status", ["deleted", "disabled", "enabled"]);
+            $table->string("status")->default("enabled");
 
             $table->timestamps();
 

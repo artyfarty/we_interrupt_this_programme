@@ -1,0 +1,21 @@
+[mysqld]
+sql_mode=NO_ENGINE_SUBSTITUTION
+
+innodb_buffer_pool_size = 1024M
+innodb_buffer_pool_dump_pct = 100
+innodb_file_per_table = 1
+
+max_allowed_packet = 16M
+sort_buffer_size = 512K
+net_buffer_length = 8K
+read_buffer_size = 256K
+read_rnd_buffer_size = 512K
+max_connections = 100
+table_cache = 100
+
+bind-address = 0.0.0.0
+skip-grant-tables
+
+[client]
+user=
+password=
