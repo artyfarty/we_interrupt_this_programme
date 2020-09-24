@@ -47,8 +47,7 @@ class RegenerateQueue implements ShouldQueue
         //$notifications = DB::table("notifications")->orderBy("priority, display_from")->get();
         $notifications = Notification::all()->sortBy("priority, display_from");
 
-
-        DB::table("queue_elements")->where("was_displayed", "!=" , 1)->delete();
+        QueueElement::whereWasDisplayed(0)->delete();
 
         // исходим из того что все уведомления должны попасть в очередь ХОТЯ БЫ раз
         // сначала проходимся по уведомляшкам и планируем их. затем проходимся по получившемуся расписанию и выправляем его, устраняя противоречия согласно приоритетам
