@@ -1,6 +1,6 @@
 # Короче
 
-Делаешь в .env `WITP_USERNAME`, `WITP_EMAIL`, `WITP_PASSWORD`. 
+Делаешь в .env `WITP_USERNAME`, `WITP_EMAIL`, `WITP_PASSWORD`. Для авторизации используй емейл и пароль.
 
 Настраиваешь базу мускуль или sqlite.
 
