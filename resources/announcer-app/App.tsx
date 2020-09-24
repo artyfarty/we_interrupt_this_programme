@@ -21,12 +21,18 @@ const
 
     pollDelay:number = process.env.MIX_ANNOUNCER_APP_POLL_DELAY ? parseInt(process.env.MIX_ANNOUNCER_APP_POLL_DELAY) : 500;
 
-const pollSchema = yup.object().shape({
-    type: yup.string().required(),
-    caption: yup.string().required(),
-    headline: yup.string().required(),
-    text: yup.string().required(),
-});
+const messageSchema = yup.object().shape({
+        id: yup.number().required(),
+        type: yup.string().required(),
+        caption: yup.string().required(),
+        headline: yup.string().required(),
+        text: yup.string().required(),
+    });
+
+const configSchema = yup.object().shape({
+        duration: yup.number().required(),
+        poll: yup.number().required()
+    });
 
 interface AppState {
     notification: null|INotification;
@@ -45,9 +51,11 @@ const App = () => {
         poll = () => {
             axios.get(pollUrl)
                 .then(function (response) {
-                    const notification = (response.data.message as INotification);
+                    const
+                        notification = (response.data.message as INotification),
+                        config = (response.data.config);
 
-                    if (response.status === 200 && response.data.message && pollSchema.isValidSync(response.data.message)) {
+                    if (response.status === 200 && response.data.message && configSchema.isValidSync(config) && messageSchema.isValidSync(notification)) {
 
                         setState({
                             notification: notification,
@@ -72,13 +80,13 @@ const App = () => {
                                     fade: false
                                 });
                                 poll();
-                            }, pollDelay + 500);
+                            }, (config.poll ? config.poll : pollDelay) + 200);
 
-                        }, notification.duration ? notification.duration : fadeDelay);
+                        }, config.duration ? config.duration : fadeDelay);
 
                     } else {
                         //повторяем
-                        pollTimeout = window.setTimeout(() => poll(), pollDelay);
+                        pollTimeout = window.setTimeout(() => poll(), config.poll ? config.poll : pollDelay);
                     }
 
                 })
