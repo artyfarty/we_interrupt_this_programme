@@ -74,7 +74,7 @@ const App = () => {
                                 poll();
                             }, pollDelay + 500);
 
-                        }, fadeDelay);
+                        }, notification.duration ? notification.duration : fadeDelay);
 
                     } else {
                         //повторяем
