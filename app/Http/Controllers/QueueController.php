@@ -33,15 +33,22 @@ class QueueController extends Controller
         );
     }
 
-    public function toggle($id) {
+    public function toggle($id, $set = "toggle") {
         /** @var QueueElement $qe */
         $qe = QueueElement::find($id);
 
-        $qe->was_displayed = !$qe->was_displayed;
+        if ($set === "toggle") {
+            $qe->was_displayed = !$qe->was_displayed;
+        } else {
+            $qe->was_displayed = !!$set;
+        }
+
         $qe->save();
 
+        $msg = $qe->was_displayed ? "q#$id Помечено показанным" : "q#$id Помечено не показанным";
+
         return redirect()->route('queue-entries')
-            ->with('success', "Toggled to {$qe->was_displayed}");
+            ->with('success', $msg);
     }
 
     public function rebuild() {

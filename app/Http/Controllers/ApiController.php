@@ -5,10 +5,21 @@ namespace App\Http\Controllers;
 use App\Models\Notification;
 use App\Models\ProgramEvent;
 use App\Models\QueueElement;
+use App\Repositories\QueueRepository;
 use Illuminate\Http\Request;
 
 class ApiController extends Controller
 {
+
+    /**
+     * @var QueueRepository
+     */
+    protected $queueRepository;
+
+    public function __construct(QueueRepository $queueRepository) {
+        $this->queueRepository = $queueRepository;
+    }
+
     public function poll($password, $auto_ack = 1) {
         if ($password !== env("WITP_PASSWORD")) {
             return ["error" => "403"];
@@ -18,14 +29,7 @@ class ApiController extends Controller
             return ["error" => "disabled"];
         }
 
-        $now = date_create()->format("Y-m-d H:i:s");
-
-        /** @var QueueElement $qe */
-        $qe = QueueElement::all()
-            ->where("was_displayed", "=", "0")
-            ->where("display_at", "<=", $now)
-            ->sortBy("display_at")
-            ->first();
+        $qe = $this->queueRepository->now();
 
 
         $cfg = [
