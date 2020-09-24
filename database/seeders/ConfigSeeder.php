@@ -24,5 +24,7 @@ class ConfigSeeder extends Seeder
         DB::table('configs')->insert(["key" => "program.notify_times", "value" => "5", "desc" => "Сколько уведомлений до начала события в раписании можно показать"]);
 
         DB::table('configs')->insert(["key" => "donate.key", "value" => "", "desc" => "widgetGroupExtId QIWI Donate"]);
+        DB::table('configs')->insert(["key" => "donate.timeframe", "value" => "+1hour", "desc" => "В течение сколького времени после создания доната его можно показать"]);
+        DB::table('configs')->insert(["key" => "donate.priority", "value" => "2", "desc" => "Приоритет донатов"]);
     }
 }

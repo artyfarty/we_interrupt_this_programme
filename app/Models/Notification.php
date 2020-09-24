@@ -96,4 +96,8 @@ class Notification extends Model
     public function program() {
         return $this->belongsTo(ProgramEvent::class);
     }
+
+    public function donation() {
+        return $this->belongsTo(Donation::class);
+    }
 }

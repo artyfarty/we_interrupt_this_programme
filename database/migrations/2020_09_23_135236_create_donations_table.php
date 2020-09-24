@@ -15,11 +15,15 @@ class CreateDonationsTable extends Migration
     {
         Schema::create('donations', function (Blueprint $table) {
             $table->id();
+            $table->string("donate_id");
 
             $table->string("person");
             $table->text("message");
             $table->unsignedFloat("sum");
-            $table->boolean("approved");
+            $table->string("currency");
+            $table->boolean("approved")->default(false);
+
+            $table->index(["donate_id"]);
 
             $table->timestamps();
         });

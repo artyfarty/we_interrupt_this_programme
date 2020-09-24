@@ -51,9 +51,7 @@
                                             <td>{{ veryshortdatetime($notification->display_from) }}</td>
                                             <td>{{ veryshortdatetime($notification->display_till) }}</td>
                                             <td>
-                                                @foreach($notification->queued as $queue_entry)
-                                                    <p>{{ veryshortdatetime($queue_entry->display_at) }}</p>
-                                                @endforeach
+                                                @include('partials.queue_status')
                                             </td>
 											<td>
                                                 @include('partials.notification_content')

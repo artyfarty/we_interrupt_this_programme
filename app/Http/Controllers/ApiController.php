@@ -45,6 +45,11 @@ class ApiController extends Controller
             unset($result["text"]);
         }
 
+        if ($qe->notification->type == "donate") {
+            $result["amount"] = +$qe->notification->donation->amount;
+            $result["currency"] = +$qe->notification->donation->currency;
+        }
+
         $qe->was_displayed = true;
         $qe->save();
 

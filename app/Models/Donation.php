@@ -29,4 +29,43 @@ use Illuminate\Database\Eloquent\Model;
 class Donation extends Model
 {
     use HasFactory;
+
+    protected $guarded = [];
+
+    public function notification() {
+        return $this->hasOne(Notification::class);
+    }
+
+    protected static function booted()
+    {
+        $createOrUpdate = function (Donation $don) {
+            $begin_date = date_create();
+            $end_date = date_create(config_get("donate.timeframe"));
+
+            if ($don->approved) {
+                $don->notification()->delete();
+
+                $don->notification()->create(
+                    [
+                        "caption" => "Нам пишут",
+                        "text"      => $don->message,
+                        "headline"  => "{$don->person}",
+                        "display_limit" => 1,
+                        "type"  => "donation",
+                        "display_from" => $begin_date,
+                        "display_till" => $end_date,
+                        "priority" => +config_get("donate.priority"),
+                    ]
+                );
+            } else {
+                $don->notification()->delete();
+            }
+        };
+
+        static::updating($createOrUpdate);
+
+        static::deleting( function (Donation $don) {
+            $don->notification()->delete();
+        });
+    }
 }

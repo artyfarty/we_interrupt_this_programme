@@ -40,6 +40,9 @@
                             <a class="nav-link" href="/program-events/">Расписание</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="{{ route("donations") }}">Донаты</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="/configs/">Настройки</a>
                         </li>
                         <li class="nav-item">
