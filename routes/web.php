@@ -17,6 +17,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('reference', function () {
+    return view('reference', ["pwd" => env("WITP_PASSWORD")]);
+})->name("reference")->middleware("auth.basic");
+
 Route::middleware('auth.basic')->group(function () {
     Route::get("queue_entries", [\App\Http\Controllers\QueueController::class, "index"])->name('queue-entries');
     Route::post("queue_entries/toggle/{id}", [\App\Http\Controllers\QueueController::class, "toggle"])->name('queue-entries.toggle');
