@@ -43,4 +43,11 @@ class QueueController extends Controller
         return redirect()->route('queue-entries')
             ->with('success', "Toggled to {$qe->was_displayed}");
     }
+
+    public function rebuild() {
+        \App\Jobs\RegenerateQueue::dispatchSync();
+
+        return redirect()->route('queue-entries')
+            ->with('success', "Queue rebuilt");
+    }
 }

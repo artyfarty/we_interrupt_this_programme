@@ -2,7 +2,13 @@
 
 @section('content')
     <p>У нас тут {{ date_create()->format("Y-m-d H:i:s") }}</p>
-    <p>Очередь упихиваем с интервалом в {{ $queue_interval_min }} ~ {{ $queue_interval }} секунд.</p>
+    <p>Очередь упихиваем с интервалом в {{ $queue_interval_min }} ~ {{ $queue_interval }} секунд. <a href="{{ route("queue-entries.rebuild") }}">Перебилдить.</a></p>
+
+    @if ($message = Session::get('success'))
+        <div class="alert alert-success">
+            <p>{{ $message }}</p>
+        </div>
+    @endif
 
     <table class="table">
         <thead>

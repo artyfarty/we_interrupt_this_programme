@@ -23,6 +23,7 @@ Route::get('reference', function () {
 
 Route::middleware('auth.basic')->group(function () {
     Route::get("queue_entries", [\App\Http\Controllers\QueueController::class, "index"])->name('queue-entries');
+    Route::get("queue_entries/rebuild", [\App\Http\Controllers\QueueController::class, "rebuild"])->name('queue-entries.rebuild');
     Route::post("queue_entries/toggle/{id}", [\App\Http\Controllers\QueueController::class, "toggle"])->name('queue-entries.toggle');
 
     Route::resource('notifications', \App\Http\Controllers\NotificationController::class);
