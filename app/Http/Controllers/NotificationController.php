@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Notification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use function Psy\debug;
 
@@ -20,7 +21,7 @@ class NotificationController extends Controller
      */
     public function index()
     {
-        $notifications = Notification::paginate();
+        $notifications = Notification::orderBy("display_from")->paginate();
 
         return view('notification.index', compact('notifications'))
             ->with('i', (request()->input('page', 1) - 1) * $notifications->perPage());

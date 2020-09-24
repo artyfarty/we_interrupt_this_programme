@@ -18,7 +18,7 @@ class ProgramEventController extends Controller
      */
     public function index()
     {
-        $programEvents = ProgramEvent::paginate();
+        $programEvents = ProgramEvent::orderBy("begin_at")->paginate();
 
         return view('program-event.index', compact('programEvents'))
             ->with('i', (request()->input('page', 1) - 1) * $programEvents->perPage());

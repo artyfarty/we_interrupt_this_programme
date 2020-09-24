@@ -34,19 +34,14 @@
                             <table class="table table-striped table-hover">
                                 <thead class="thead">
                                     <tr>
-                                        <th>No</th>
+                                        <th>С</th>
+                                        <th>По</th>
+                                        <th>В очереди</th>
 
-										<th>Program Event Id</th>
-										<th>Donation Id</th>
-										<th>Caption</th>
-										<th>Headline</th>
-										<th>Text</th>
-										<th>Type</th>
+										<th>Контент</th>
 										<th>Meta</th>
 										<th>Priority</th>
 										<th>Display Limit</th>
-										<th>Display From</th>
-										<th>Display Till</th>
 
                                         <th></th>
                                     </tr>
@@ -54,19 +49,18 @@
                                 <tbody>
                                     @foreach ($notifications as $notification)
                                         <tr>
-                                            <td>{{ ++$i }}</td>
-
-											<td>{{ $notification->program_event_id }}</td>
-											<td>{{ $notification->donation_id }}</td>
-											<td>{{ $notification->caption }}</td>
-											<td>{{ $notification->headline }}</td>
-											<td>{{ $notification->text }}</td>
-											<td>{{ $notification->type }}</td>
-											<td>{{ json_encode($notification->meta) }}</td>
+                                            <td>{{ veryshortdatetime($notification->display_from) }}</td>
+                                            <td>{{ veryshortdatetime($notification->display_till) }}</td>
+                                            <td>
+                                                @foreach($notification->queued as $queue_entry)
+                                                    <p>{{ veryshortdatetime($queue_entry->display_at) }}</p>
+                                                @endforeach
+                                            </td>
+											<td>
+                                                @include('partials.notification_content')
+                                            </td>
 											<td>{{ $notification->priority }}</td>
 											<td>{{ $notification->display_limit }}</td>
-											<td>{{ $notification->display_from }}</td>
-											<td>{{ $notification->display_till }}</td>
 
                                             <td>
                                                 <form action="{{ route('notifications.destroy',$notification->id) }}" method="POST">

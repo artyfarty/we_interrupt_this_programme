@@ -49,7 +49,7 @@
                                         <tr>
                                             <td>{{ ++$i }}</td>
 
-											<td>{{ $programEvent->begin_at }}</td>
+											<td>{{ veryshortdatetime($programEvent->begin_at) }}</td>
 											<td>{{ $programEvent->headline }}</td>
 											<td>{{ $programEvent->text }}</td>
 											<td><span class="badge badge-{{ $programEvent->status == "enabled" ? "success" : "danger" }}">{{ $programEvent->status }}</span></td>

@@ -46,17 +46,17 @@ class ProgramEvent extends Model
     protected static function booted()
     {
         $createOrUpdate = function (ProgramEvent $pe) {
-            $config = resolve(ConfigRepository::class);
 
             $end_date = date_create($pe->begin_at);
-            $begin_date = (clone $end_date)->modify($config->get("program.notify_for"));
+            $begin_date = (clone $end_date)->modify(config_get("program.notify_for"));
 
             if ($pe->status == "enabled") {
-                $pe->notification()->updateOrCreate([], [
+                $pe->notification()->delete();
+                $pe->notification()->create([
                     "caption" => "Далее",
                     "text"      => $pe->text,
                     "headline"  => $pe->headline,
-                    "display_limit" => 3,
+                    "display_limit" => config_get("program.notify_times"),
                     "type"  => "schedule",
                     "display_from" => $begin_date,
                     "display_till" => $end_date,
@@ -66,8 +66,11 @@ class ProgramEvent extends Model
             }
         };
 
-        static::creating($createOrUpdate);
+        static::created($createOrUpdate);
         static::updating($createOrUpdate);
+        static::deleting( function (ProgramEvent $pe) {
+            $pe->notification()->delete();
+        });
     }
 
 }

@@ -82,12 +82,18 @@ class Notification extends Model
             \App\Jobs\RegenerateQueue::dispatchSync();
         };
 
-        static::created($regenQueue);
-        static::updated($regenQueue);
-        static::deleted($regenQueue);
+        if (config_get("queue.rebuild")) {
+            static::created($regenQueue);
+            static::updated($regenQueue);
+            static::deleted($regenQueue);
+        }
     }
 
     public function queued() {
         return $this->hasMany(QueueElement::class);
+    }
+
+    public function program() {
+        return $this->belongsTo(ProgramEvent::class);
     }
 }

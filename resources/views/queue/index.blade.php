@@ -18,19 +18,14 @@
         @foreach ($queues as $entry)
             <tr>
                 <th scope="row">{{ $entry->id }}&nbsp;/&nbsp;{{ $entry->notification_id }}</th>
-                <td>{{ date_create($entry->display_at)->format("j M H:i") }}</td>
+                <td>{{ veryshortdatetime($entry->display_at) }}</td>
                 <td>{{ $entry->was_displayed ? "Да" : "Нет" }}</td>
                 <td>
-                    <p>
-                        <span class="badge badge-info">{{ $entry->notification->type }}</span>
-                    </p>
-                    <h4>{{ $entry->notification->caption }}</h4>
-                    <h5>{{ $entry->notification->headline }}</h5>
-                    {{ $entry->notification->text }}
+                    @include('partials.notification_content', ["notification" => $entry->notification])
                 </td>
                 <td>
                     <p>Приоритет: {{ $entry->notification->priority }}</p>
-                    <p>Таймфрейм: {{ date_create($entry->notification->display_from)->format("j M H:i") }} – {{ date_create($entry->notification->display_till)->format("j M H:i") }}</p>
+                    <p>Таймфрейм: {{ veryshortdatetime($entry->notification->display_from) }} – {{ veryshortdatetime($entry->notification->display_till) }}</p>
                     <p>Лимит показов: {{ $entry->notification->display_limit }}</p>
                 </td>
             </tr>
