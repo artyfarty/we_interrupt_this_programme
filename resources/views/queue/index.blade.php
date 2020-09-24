@@ -16,10 +16,15 @@
         </thead>
         <tbody>
         @foreach ($queues as $entry)
-            <tr>
+            <tr class="{{ $entry->was_displayed ? "table-secondary" : "" }}">
                 <th scope="row">{{ $entry->id }}&nbsp;/&nbsp;{{ $entry->notification_id }}</th>
                 <td>{{ veryshortdatetime($entry->display_at) }}</td>
-                <td>{{ $entry->was_displayed ? "Да" : "Нет" }}</td>
+                <td>
+                    <form action="{{ route('queue-entries.toggle', $entry->id) }}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn btn-warning btn-sm"><i class="fa fa-fw fa-trash"></i>{{ $entry->was_displayed ? "Да" : "Нет" }}</button>
+                    </form>
+                </td>
                 <td>
                     @include('partials.notification_content', ["notification" => $entry->notification])
                 </td>
