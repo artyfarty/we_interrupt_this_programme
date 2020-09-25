@@ -106,4 +106,24 @@ class ProgramEventController extends Controller
         return redirect()->route('program-events.index')
             ->with('success', 'ProgramEvent deleted successfully');
     }
+
+    public function toggle($id, $set = "toggle") {
+        /** @var ProgramEvent $pe */
+        $pe = ProgramEvent::find($id);
+
+        if ($set === "toggle") {
+            $pe->status = $pe->status == "enabled" ? "disabled" : "enabled";
+        } elseif ($set === "enabled") {
+            $pe->status = "enabled";
+        } else {
+            $pe->status = "disabled";
+        }
+
+        $pe->save();
+
+        $msg = $pe->status == "enabled" ? "Событие $id активировано" : "Событие $id выключено";
+
+        return redirect()->route('program-events.index')
+            ->with('success', $msg);
+    }
 }

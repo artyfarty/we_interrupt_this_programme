@@ -49,7 +49,14 @@
 											<td>{{ veryshortdatetime($programEvent->begin_at) }}</td>
 											<td>{{ $programEvent->headline }}</td>
 											<td>{{ $programEvent->text }}</td>
-											<td><span class="badge badge-{{ $programEvent->status == "enabled" ? "success" : "danger" }}">{{ $programEvent->status }}</span></td>
+											<td>
+                                                <form action="{{ route('program-events.toggle', $programEvent->id) }}" method="POST">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-sm {{ $programEvent->status == "enabled" ? "btn-success" : "btn-warning" }}">
+                                                        <i class="fa fa-fw fa-trash"></i>{{ $programEvent->status == "enabled" ? "Активно" : "Выключено" }}
+                                                    </button>
+                                                </form>
+                                            </td>
 
                                             <td>
                                                 @if($programEvent->notification)

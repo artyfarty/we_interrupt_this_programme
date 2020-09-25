@@ -31,6 +31,8 @@ Route::middleware('auth.basic')->group(function () {
     Route::resource('configs', \App\Http\Controllers\ConfigController::class);
     Route::resource('program-events', \App\Http\Controllers\ProgramEventController::class);
 
+    Route::post("program-events/toggle/{id}", [\App\Http\Controllers\ProgramEventController::class, "toggle"])->name("program-events.toggle");
+
     Route::get("donations", [\App\Http\Controllers\DonationsController::class, "index"])->name('donations');
     Route::post("donations/toggle/{id}", [\App\Http\Controllers\DonationsController::class, "toggle"])->name('donations.toggle');
 });
