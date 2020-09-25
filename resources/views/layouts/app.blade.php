@@ -64,10 +64,18 @@
                 </div>
             </div>
         </nav>
-
-        <main class="container">
+        <div class="container mb-2">
             @inject('qr', '\App\Repositories\QueueRepository')
-            @include("partials.queue_card", ["queue_item" => $qr->next()])
+            <div class="row">
+                <div class="col">
+                    @include("partials.queue_card", ["queue_item" => $qr->next()])
+                </div>
+                <div class="col">
+                    @include("partials.notification_express_create")
+                </div>
+            </div>
+        </div>
+        <main class="container">
             @yield('content')
         </main>
     </div>

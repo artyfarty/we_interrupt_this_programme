@@ -46,6 +46,9 @@ class NotificationController extends Controller
      */
     public function store(Request $request)
     {
+        $request["display_from"] = $request["display_from"] ?? date_create()->format("Y-m-d H:i:s");
+        $request["display_till"] = $request["display_till"] ?? date_create("+1hour")->format("Y-m-d H:i:s");
+
         request()->validate(Notification::$rules);
 
         $notification = Notification::create($request->all());
