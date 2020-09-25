@@ -72,6 +72,17 @@ class ProgramEvent extends Model
             }
         };
 
+
+        $regenQueue = function () {
+            \App\Jobs\RegenerateQueue::dispatchSync();
+        };
+
+        if (config_get("queue.rebuild")) {
+            static::created($regenQueue);
+            static::updated($regenQueue);
+            static::deleted($regenQueue);
+        }
+
         static::created($createOrUpdate);
         static::updating($createOrUpdate);
         static::deleting( function (ProgramEvent $pe) {

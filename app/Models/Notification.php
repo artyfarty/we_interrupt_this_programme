@@ -85,11 +85,12 @@ class Notification extends Model
         if (config_get("queue.rebuild")) {
             static::created($regenQueue);
             static::updated($regenQueue);
-            static::deleting(function (Notification $n) use ($regenQueue) {
-                QueueElement::whereNotificationId($n->id)->delete();
-            });
             static::deleted($regenQueue);
         }
+
+        static::deleting(function (Notification $n) use ($regenQueue) {
+            QueueElement::whereNotificationId($n->id)->delete();
+        });
     }
 
     public function queued() {
