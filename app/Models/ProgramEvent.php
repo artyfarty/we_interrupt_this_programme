@@ -56,7 +56,8 @@ class ProgramEvent extends Model
             }
 
             if ($pe->status == "enabled") {
-                $pe->notification()->delete();
+                Notification::whereProgramEventId($pe->id)->delete();
+
                 $pe->notification()->create([
                     "caption" => "Далее",
                     "text"      => $pe->text,
@@ -67,14 +68,25 @@ class ProgramEvent extends Model
                     "display_till" => $end_date,
                 ]);
             } else {
-                $pe->notification()->delete();
+                Notification::whereProgramEventId($pe->id)->delete();
             }
         };
+
+
+        $regenQueue = function () {
+            \App\Jobs\RegenerateQueue::dispatchSync();
+        };
+
+        if (config_get("queue.rebuild")) {
+            static::created($regenQueue);
+            static::updated($regenQueue);
+            static::deleted($regenQueue);
+        }
 
         static::created($createOrUpdate);
         static::updating($createOrUpdate);
         static::deleting( function (ProgramEvent $pe) {
-            $pe->notification()->delete();
+            Notification::whereProgramEventId($pe->id)->delete();
         });
     }
 

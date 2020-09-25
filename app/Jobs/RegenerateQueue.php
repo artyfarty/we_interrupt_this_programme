@@ -27,6 +27,7 @@ class RegenerateQueue implements ShouldQueue
     protected $minInterval = 0;
     protected $normalInterval = 0;
     protected $priorityInterval = 0;
+    protected $scheduleInterval = 0;
 
     public function __construct() {
 
@@ -35,6 +36,7 @@ class RegenerateQueue implements ShouldQueue
         $this->minInterval = +$this->configRepository->get("queue.interval_min");
         $this->normalInterval = +$this->configRepository->get("queue.interval");
         $this->priorityInterval = +$this->configRepository->get("queue.interval_priority");
+        $this->scheduleInterval = +$this->configRepository->get("queue.schedule.interval");
     }
 
     /**
@@ -46,10 +48,17 @@ class RegenerateQueue implements ShouldQueue
     {
         Log::debug("Begin regeneration");
 
-        //$notifications = DB::table("notifications")->orderBy("priority, display_from")->get();
         $notifications = Notification::all()->sortBy("priority, display_from");
 
         QueueElement::whereWasDisplayed(0)->delete();
+
+        DB::table('queue_elements')
+            ->whereNotExists(function ($query) {
+                $query->select(DB::raw(1))
+                    ->from('notifications')
+                    ->whereRaw('notifications.id = notification_id')
+                    ->limit(1);
+            })->delete();
 
         // исходим из того что все уведомления должны попасть в очередь ХОТЯ БЫ раз
         // сначала проходимся по уведомляшкам и планируем их. затем проходимся по получившемуся расписанию и выправляем его, устраняя противоречия согласно приоритетам
@@ -126,6 +135,8 @@ class RegenerateQueue implements ShouldQueue
 
         if ($n->priority == 0) {
             $interval = $this->priorityInterval;
+        } elseif ($n->type == "schedule") {
+            $interval = $this->scheduleInterval;
         }
 
         while ($timeslot < $display_till && !$this->isTimeslotSafe($timeslot, $interval)) {

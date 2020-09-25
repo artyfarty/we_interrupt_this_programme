@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    Notification
+    Объявы
 @endsection
 
 @section('content')
@@ -13,12 +13,12 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Notification') }}
+                                {{ __('Объявы') }}
                             </span>
 
                              <div class="float-right">
                                 <a href="{{ route('notifications.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Create New') }}
+                                  {{ __('Добавить') }}
                                 </a>
                               </div>
                         </div>

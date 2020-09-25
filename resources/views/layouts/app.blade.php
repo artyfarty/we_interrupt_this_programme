@@ -66,6 +66,8 @@
         </nav>
 
         <main class="container">
+            @inject('qr', '\App\Repositories\QueueRepository')
+            @include("partials.queue_card", ["queue_item" => $qr->next()])
             @yield('content')
         </main>
     </div>

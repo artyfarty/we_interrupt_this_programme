@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    Program Event
+    События
 @endsection
 
 @section('content')
@@ -13,12 +13,12 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Program Event') }}
+                                {{ __('События') }}
                             </span>
 
                              <div class="float-right">
                                 <a href="{{ route('program-events.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Create New') }}
+                                  {{ __('Добавить') }}
                                 </a>
                               </div>
                         </div>
@@ -34,12 +34,11 @@
                             <table class="table table-striped table-hover">
                                 <thead class="thead">
                                     <tr>
-                                        <th>No</th>
-
-										<th>Begin At</th>
-										<th>Headline</th>
-										<th>Text</th>
-										<th>Status</th>
+										<th>Начало</th>
+										<th>Заголовок</th>
+										<th>Текст</th>
+										<th>Статус</th>
+                                        <th>В очереди?</th>
 
                                         <th></th>
                                     </tr>
@@ -47,12 +46,25 @@
                                 <tbody>
                                     @foreach ($programEvents as $programEvent)
                                         <tr>
-                                            <td>{{ ++$i }}</td>
-
 											<td>{{ veryshortdatetime($programEvent->begin_at) }}</td>
 											<td>{{ $programEvent->headline }}</td>
 											<td>{{ $programEvent->text }}</td>
-											<td><span class="badge badge-{{ $programEvent->status == "enabled" ? "success" : "danger" }}">{{ $programEvent->status }}</span></td>
+											<td>
+                                                <form action="{{ route('program-events.toggle', $programEvent->id) }}" method="POST">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-sm {{ $programEvent->status == "enabled" ? "btn-success" : "btn-warning" }}">
+                                                        <i class="fa fa-fw fa-trash"></i>{{ $programEvent->status == "enabled" ? "Активно" : "Выключено" }}
+                                                    </button>
+                                                </form>
+                                            </td>
+
+                                            <td>
+                                                @if($programEvent->notification)
+                                                    @include('partials.queue_status', ["notification" => $programEvent->notification])
+                                                @else
+                                                    Не в очереди
+                                                @endif
+                                            </td>
 
                                             <td>
                                                 <form action="{{ route('program-events.destroy',$programEvent->id) }}" method="POST">

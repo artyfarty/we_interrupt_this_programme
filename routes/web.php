@@ -25,10 +25,13 @@ Route::middleware('auth.basic')->group(function () {
     Route::get("queue_entries", [\App\Http\Controllers\QueueController::class, "index"])->name('queue-entries');
     Route::get("queue_entries/rebuild", [\App\Http\Controllers\QueueController::class, "rebuild"])->name('queue-entries.rebuild');
     Route::post("queue_entries/toggle/{id}", [\App\Http\Controllers\QueueController::class, "toggle"])->name('queue-entries.toggle');
+    Route::post("queue_entries/toggle/{id}/{to}", [\App\Http\Controllers\QueueController::class, "toggle"])->name('queue-entries.toggle-to');
 
     Route::resource('notifications', \App\Http\Controllers\NotificationController::class);
     Route::resource('configs', \App\Http\Controllers\ConfigController::class);
     Route::resource('program-events', \App\Http\Controllers\ProgramEventController::class);
+
+    Route::post("program-events/toggle/{id}", [\App\Http\Controllers\ProgramEventController::class, "toggle"])->name("program-events.toggle");
 
     Route::get("donations", [\App\Http\Controllers\DonationsController::class, "index"])->name('donations');
     Route::post("donations/toggle/{id}", [\App\Http\Controllers\DonationsController::class, "toggle"])->name('donations.toggle');
